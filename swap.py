@@ -68,8 +68,8 @@ def swap(*args):
     parent_frame = sys._getframe().f_back
     parent_locals = parent_frame.f_locals
 
-    outer_bindings = _myargs_repr().split(',')
-    a, b = map(str.strip, outer_bindings)
+    outer_bindings = _myargs_repr().partition(',')
+    a,_, b = map(str.strip, outer_bindings)
 
     parent_a = parent_locals.get(a)
     parent_b = parent_locals.get(b)
