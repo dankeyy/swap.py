@@ -59,6 +59,8 @@ def _myargs_repr():
 # -------------------------------------------------------------------------------------
 
 def swap(*args):
+    """swaps two variables in-place, raises ValueError for invalid arguments such as literals"""
+
     if len(args) != 2:
         raise ValueError("Supply exactly 2 arguments")
 
@@ -74,6 +76,9 @@ def swap(*args):
     if None in (parent_a, parent_b):
         raise ValueError("Bad arguments to swap")
 
+    # actual switch
     parent_locals[a], parent_locals[b] = parent_b, parent_a
+
+    # push unto the stack so the change will persist
     pythonapi.PyFrame_LocalsToFast.argtypes = [py_object]
     pythonapi.PyFrame_LocalsToFast(parent_frame)
