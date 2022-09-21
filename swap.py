@@ -1,9 +1,10 @@
 import sys
 import inspect
+from ctypes import pythonapi, py_object
 
 
 # shamelessly stolen from https://github.com/dankeyy/arg_repr.py
-# embedding arg_repr here is simpler than importing it
+# bc -stack reasons- embedding arg_repr here is simpler than importing it
 # so-
 
 
@@ -65,11 +66,11 @@ def swap(*args):
     if len(args) != 2:
         raise ValueError("Must supply exactly 2 arguments")
 
-    parent_frame = sys._getframe().f_back
+    parent_frame = sys._getframe(1)
     parent_locals = parent_frame.f_locals
 
     outer_bindings = _myargs_repr().partition(',')
-    a,_, b = map(str.strip, outer_bindings)
+    a, _, b = map(str.strip, outer_bindings)
 
     parent_a = parent_locals.get(a)
     parent_b = parent_locals.get(b)
@@ -78,3 +79,5 @@ def swap(*args):
         raise ValueError("Bad arguments to swap")
 
     parent_locals[a], parent_locals[b] = parent_b, parent_a
+    pythonapi.PyFrame_LocalsToFast.argtypes = [py_object]
+    pythonapi.PyFrame_LocalsToFast(parent_frame, 0)
