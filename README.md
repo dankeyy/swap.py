@@ -34,10 +34,14 @@ Was a nice experiment too
 Swapping the two variables entry at the frame's locals.
 
 ## But I thought locals is only a copy and you can't really change a function's locals at runtime
-When there's a will, there's a way. That way is c-api (which here I'm accessing via ctypes' pythonapi).\
-So after the change to locals, rewrite those changes to the frame's fastlocals (what is behind your friendly neighborhood `locals`), and you should be good to go.\
+When there's a will, there's a way. That way is c-api.
+
+So after we change locals, we rewrite those to the frame's fastlocals (what is behind your friendly neighborhood `locals`). 
+That's really all there is to it. Simple than you might have thought, huh?
+
 Also, I feel obliged to say it at this point; this is an undocumented function of the c-api created mainly (only?) for debuggers.\
-But as the shitposter I am, I'm going to abuse it (sorry).
+But as the shitposter I am, I'm going to abuse it (sorry).\
+So maybe don't do this at home, do as I say, not as I do, yada yada.
  
  ## Wouldn't you need to have the arguments' original names to access them at locals' dictionary
  Yea and that part can be a little tricky.
