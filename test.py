@@ -14,6 +14,14 @@ def f():
     swap(a, b)
     assert a == "banana" and b == keeper
 
+    def g():
+        nonlocal a
+        nonlocal b
+        swap(a, b)
+
+    g()
+    assert b == "banana" and a == keeper
+
 f()
 
 # correctly fails with ValueError: Bad arguments to swap:
