@@ -6,7 +6,9 @@ CPP-std::swap-like swap for CPython\
 from swap import swap
 
 def f():
-    a, b = "foo", "bar"
+    a = "foo" 
+    b = "bar"
+    
     swap(a, b)
     
     print(f"{a = }\n{b = }")
