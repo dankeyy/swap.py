@@ -79,6 +79,6 @@ def swap(*args):
     # actual switch
     parent_locals[a], parent_locals[b] = parent_b, parent_a
 
-    # push unto the stack so the change will persist
+    # write changes into the frame's fastlocals so it persist
     pythonapi.PyFrame_LocalsToFast.argtypes = [py_object]
     pythonapi.PyFrame_LocalsToFast(parent_frame)
