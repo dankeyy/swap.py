@@ -1,3 +1,4 @@
+import os
 import sys
 import inspect
 from ctypes import pythonapi, py_object
@@ -38,10 +39,10 @@ def _myargs_repr():
     lineo = upper_frame.f_lineno - upper_frame.f_code.co_firstlineno
     code = inspect.getsource(upper_frame)
 
-    # seek beginning of function call by traversing the code until call line
+    # seek beginning of call line by traversing the code until the lineo-th newline
     line = p = 0
     while line != lineo:
-        if code[p] == '\n':
+        if code[p] == os.linesep:
             line += 1
         p += 1
 
