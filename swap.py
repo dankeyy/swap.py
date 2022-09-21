@@ -3,10 +3,7 @@ import inspect
 from ctypes import pythonapi, py_object
 
 
-# shamelessly stolen from https://github.com/dankeyy/arg_repr.py
-# bc -stack reasons- embedding arg_repr here is simpler than importing it
-# so-
-
+# slightly adjusted version of https://github.com/dankeyy/arg_repr.py
 
 def _parens(code):
     opening = closing = 0
@@ -34,13 +31,11 @@ def _parens(code):
 
 
 def _myargs_repr():
-    func_name = inspect.stack()[1][3]
-    parent_frame = inspect.stack()[2][0]
-    lineo = parent_frame.f_lineno-1
-    upper_frame = parent_frame
-    while upper_frame.f_back:
-        upper_frame = upper_frame.f_back
+    func_name = "swap"
+    upper_frame = sys._getframe(2)
 
+    #        line called              first line in frame that called
+    lineo = upper_frame.f_lineno - upper_frame.f_code.co_firstlineno
     code = inspect.getsource(upper_frame)
 
     # seek beginning of function call by traversing the code until call line
@@ -64,7 +59,7 @@ def _myargs_repr():
 
 def swap(*args):
     if len(args) != 2:
-        raise ValueError("Must supply exactly 2 arguments")
+        raise ValueError("Supply exactly 2 arguments")
 
     parent_frame = sys._getframe(1)
     parent_locals = parent_frame.f_locals
@@ -80,4 +75,4 @@ def swap(*args):
 
     parent_locals[a], parent_locals[b] = parent_b, parent_a
     pythonapi.PyFrame_LocalsToFast.argtypes = [py_object]
-    pythonapi.PyFrame_LocalsToFast(parent_frame, 0)
+    pythonapi.PyFrame_LocalsToFast(parent_frame)
