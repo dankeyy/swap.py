@@ -1,6 +1,9 @@
 # swap.py
 CPP-std::swap-like swap for CPython\
 🔴 Note - this heavily relies on c-api; will break for other implementations of Python. 🔴
+
+Should work in all versions of python 3 except there seems be an issue on <=3.7 of multi-line calls.
+
 ## What
 ```python
 from swap import swap
