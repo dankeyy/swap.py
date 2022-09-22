@@ -2,7 +2,7 @@
 cpp-std::swap-like swap function for CPython\
 🔴 Note - this heavily relies on c-api; will break for other implementations of Python. 🔴
 
-So generally works fine for all versions of cpython (even 2).\
+So generally works fine for all versions of cpython (even 2.7).\
 But - if for some reason you spread your swap call over multiple lines,\
 you would need to either use a version newer than 3.7 (old parser issue) or one-line it.
 
