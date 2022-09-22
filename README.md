@@ -1,10 +1,10 @@
 # swap.py
-CPP-std::swap-like swap for CPython\
+cpp-std::swap-like swap function for CPython\
 🔴 Note - this heavily relies on c-api; will break for other implementations of Python. 🔴
 
-Generally works fine in all versions of python 3.\
-But - if for some reason you need to spread your swap call over multiple lines,\ 
-you would need to use a version newer than 3.7 (old parser issue).
+So generally works fine for all versions of cpython (even 2).\
+But - if for some reason you spread your swap call over multiple lines,\
+you would need to either use a version newer than 3.7 (old parser issue) or one-line it.
 
 ## What
 ```python
