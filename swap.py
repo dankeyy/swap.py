@@ -67,18 +67,23 @@ def swap(*args):
     parent_frame = sys._getframe(1)
     parent_locals = parent_frame.f_locals
 
+    # parse and clean args
     outer_bindings = _myargs_repr().partition(',')
     a, _, b = map(str.strip, outer_bindings)
 
     parent_a = parent_locals.get(a)
     parent_b = parent_locals.get(b)
 
+    # if it wasn't found (dict.get returned None) something doesn't is weird
+    # because allegedly it was called this way (found by arg_repr) so it should be in f_locals.
+    # so that maybe user tried to pass something dumb like numbers/ string literals /complex data structures
+    # instead of bindings. in any of these cases, raise ValueError
     if None in (parent_a, parent_b):
         raise ValueError("Bad arguments to swap")
 
-    # actual switch
+    # swap
     parent_locals[a], parent_locals[b] = parent_b, parent_a
 
-    # write changes into the frame's fastlocals so it persist
+    # write changes to frame's fastlocals so it persists
     pythonapi.PyFrame_LocalsToFast.argtypes = [py_object]
     pythonapi.PyFrame_LocalsToFast(parent_frame)
