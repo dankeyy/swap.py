@@ -44,7 +44,7 @@ When there's a will, there's a way. That way is c-api.
 So after we change locals, we rewrite those to the frame's fastlocals (what is behind your friendly neighborhood `locals`). 
 That's really all there is to it. Simple than you might have thought, huh?
 
-Also, I feel obliged to say it at this point; this is an undocumented function of the c-api created mainly (only?) for debuggers.\
+Also, I feel obliged to say it at this point; this is using an undocumented function of the c-api created mainly (only?) for debuggers.\
 But as the shitposter I am, I'm going to abuse it (sorry).\
 So maybe don't do this at home, do as I say, not as I do, yada yada.
  
