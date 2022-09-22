@@ -44,8 +44,8 @@ Swapping the two variables entry at the frame's locals.
 When there's a will, there's a way. That way is c-api.
 
 So after we swap the entries of (say) `a` and `b` in the frame's `f_locals` (this is what you would've got through locals() if you were at the actual frame), we write those to the frame's fastlocals (what is behind your friendly neighborhood `locals`) so that the change will persist after exiting the current frame.\
-I will make it clear that all this of course is not possible with merely `f_locals`/ `locals()` which really are just a dict representation, given by demand, to the frame's fastlocals array. That's why we need c-api's fasttolocals to make it stick.
-Overall that's really all there is to it. Simpler than you might have thought, huh?
+I will make it clear that all this of course is not possible with merely `f_locals`/ `locals()` which really are just a dict representation, given by demand, to the frame's fastlocals array. That's why we need c-api's fasttolocals to make it stick.\
+Overall that's really all there is to it. Pretty simple when you think about it.
 
 Also, I feel obliged to say it at this point; this is using an undocumented function of the c-api created mainly (only?) for debuggers.\
 But as the shitposter I am, I'm going to abuse it (sorry).\
