@@ -2,7 +2,8 @@
 CPP-std::swap-like swap for CPython\
 🔴 Note - this heavily relies on c-api; will break for other implementations of Python. 🔴
 
-Generally works fine in all versions of python 3 except - regarding multi-line calls - there is an issue for versions<=3.7 (ig because of the old parser).
+Generally works fine in all versions of python 3.\
+But - if for some reason you need to spread you swap call over multiple lines, you would need to use a version newer than 3.7 (old parser issue).
 
 ## What
 ```python
