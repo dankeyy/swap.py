@@ -4,8 +4,7 @@ from swap import swap
 foo = "foo"
 bar = "bar"
 
-swap(foo,
-     bar)
+swap(foo, bar)
 
 assert foo == "bar" and bar == "foo"
 
@@ -25,7 +24,10 @@ def f():
 
 f()
 
-# correctly fails with ValueError: Bad arguments to swap:
-# swap("banana", 1)
-# swap(object(), foo)
-# swap([1,2,3], (""))
+try:
+    swap("banana", 1)
+    swap(object(), foo)
+    swap([1,2,3], (""))
+    raise AssertionError("Unreachable. It should've raised a ValueErrornreachable")
+except ValueError:
+    pass
