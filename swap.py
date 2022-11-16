@@ -64,15 +64,17 @@ def swap(*args):
     if len(args) != 2:
         raise ValueError("Supply exactly 2 arguments")
 
-    parent_frame = sys._getframe(1)
-    parent_locals = parent_frame.f_locals
+    current_frame  = sys._getframe(0)
+    parent_frame   = sys._getframe(1)
+    current_locals = current_frame.f_locals
+    parent_locals  = parent_frame.f_locals
 
     # parse and clean args
     outer_bindings = _myargs_repr().partition(',')
     a, _, b = map(str.strip, outer_bindings)
 
-    parent_a = parent_locals.get(a)
-    parent_b = parent_locals.get(b)
+    parent_a = parent_locals.get(a) or current_locals.get(a)
+    parent_b = parent_locals.get(b) or current_locals.get(b)
 
     # if it wasn't found (dict.get returned None) something doesn't is weird
     # because allegedly it was called this way (found by arg_repr) so it should be in f_locals.
