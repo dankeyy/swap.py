@@ -10,13 +10,15 @@ def _prompt():
     import readline
     i = readline.get_current_history_length()
     line = ''
+    code = []
     # for interactive mode, we're going to be lazy
     # and check only for single line calls
     # sorry
-    while 'swap(' not in line:
+    while "swap(" not in line:
         line = readline.get_history_item(i)
+        code.append(line.lstrip("\\"))
         i -= 1
-    return line
+    return ''.join(code[::-1])
 
 
 def _in_ipython():
@@ -35,7 +37,7 @@ def _parens(code):
 
     for i, v in enumerate(code):
 
-        if code[i-1] != '\\' or code[i-2:i] == "\\\\":
+        if code[i-1] != "\\" or code[i-2:i] == "\\\\":
 
             if v in ("'", '"'):
                 marks.append(v)
@@ -57,8 +59,6 @@ def _parens(code):
 
 def _myargs_repr(in_interactive_shell, in_ipython):
     # adjusted version of https://github.com/dankeyy/arg_repr.py
-    func_name = "swap"
-
     if in_interactive_shell and not in_ipython:
         code = _prompt()
 
@@ -82,7 +82,7 @@ def _myargs_repr(in_interactive_shell, in_ipython):
         # up until the last relevant closing paren
         code = code[p:]
 
-    code = code[code.index(func_name + '(') + len(func_name) + 1:]
+    code = code[code.index("swap(") + len("swap") + 1:]
     code = code[:_parens(code)] # _parens might return None but that's ok, [:None] is valid
 
         # code is now a repr of the function call arguments
@@ -97,7 +97,7 @@ def swap(*args):
         raise ValueError("Supply exactly 2 arguments")
 
     ipython = _in_ipython()
-    interactive_shell = hasattr(sys, 'ps1')
+    interactive_shell = hasattr(sys, "ps1")
 
     parent_frame   = sys._getframe(1)
     parent_locals  = parent_frame.f_locals
