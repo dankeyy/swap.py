@@ -11,9 +11,7 @@ def _prompt():
     i = readline.get_current_history_length()
     line = ''
     code = []
-    # for interactive mode, we're going to be lazy
-    # and check only for single line calls
-    # sorry
+
     while "swap(" not in line:
         line = readline.get_history_item(i)
         code.append(line.lstrip("\\"))
