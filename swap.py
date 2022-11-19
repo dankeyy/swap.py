@@ -7,14 +7,23 @@ from ctypes import pythonapi, py_object
 # -------------------------------------------------------------------------------------
 
 def _prompt():
-    import readline
+    # awfuly hacky, but pretty flexible for prompt lol
+    import re, readline
     i = readline.get_current_history_length()
     line = ''
     code = []
 
-    while "swap(" not in line:
+    while not re.match(r"swap\s*\(", line):
         line = readline.get_history_item(i)
-        code.append(line.lstrip("\\"))
+        relevant = line.lstrip("\\\n")
+
+        # tbh at this point just exploring how many edge parsing cases
+        # i could possibly catch without a tokenizer
+        if relevant:
+            if relevant == "swap" and code[-1] == '(':
+                return ''.join(code[:-1:-1])
+
+            code.append(relevant)
         i -= 1
     return ''.join(code[::-1])
 
@@ -80,7 +89,8 @@ def _myargs_repr(in_interactive_shell, in_ipython):
         # up until the last relevant closing paren
         code = code[p:]
 
-    code = code[code.index("swap(") + len("swap") + 1:]
+    code = code[code.index("swap") + len("swap"):]
+    code = code[code.index('(') + 1:]
     code = code[:_parens(code)] # _parens might return None but that's ok, [:None] is valid
 
         # code is now a repr of the function call arguments
