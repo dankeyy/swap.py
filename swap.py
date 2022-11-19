@@ -3,11 +3,11 @@ import sys
 import inspect
 from ctypes import pythonapi, py_object
 
-# utils for checking if running in interactive shell mode
+# interactive mode specific utilities
 # -------------------------------------------------------------------------------------
 
 def _prompt():
-    # awfuly hacky, but pretty flexible for prompt lol
+    # awfully hacky, but pretty flexible for prompt lol
     import re, readline
     i = readline.get_current_history_length()
     line = ''
