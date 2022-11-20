@@ -13,7 +13,7 @@ def _prompt():
     line = ''
     code = []
 
-    while not re.match(r"swap\s*\(", line):
+    while not re.match(r".*swap\s*\(", line):
         line = readline.get_history_item(i)
         relevant = line.lstrip("\\\n")
 
