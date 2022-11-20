@@ -128,9 +128,9 @@ def swap(*args):
 
         if interactive_shell or ipython:
             try:
-                # this may raise an exception because
-                # in interactive mode, if the values were in fact invalid
-                # (in interactive mode, on the global scope, there is no second upper frame)
+                # this may raise an exception
+                # if the values were in fact invalid
+                # because again it could just be a regular invalid call with no indirection
                 parent_frame = sys._getframe(2)
             except ValueError:
                 raise ValueError("Bad arguments to swap") from None
