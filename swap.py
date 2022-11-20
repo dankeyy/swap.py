@@ -127,7 +127,14 @@ def swap(*args):
         # in this case we could just check the upper frame
 
         if interactive_shell or ipython:
-            parent_frame  = sys._getframe(2)
+            try:
+                # this may raise an exception because
+                # in interactive mode, if the values were in fact invalid
+                # (in interactive mode, on the global scope, there is no second upper frame)
+                parent_frame = sys._getframe(2)
+            except ValueError:
+                raise ValueError("Bad arguments to swap") from None
+
             # The following is 100% identical to the logic above,
             # and could probably be abstracted by an external function
             # with small adjustments to match upper upper upper (yes 3 times) frame
