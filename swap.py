@@ -133,7 +133,7 @@ def swap(*args):
                 # because again it could just be a regular invalid call with no indirection
                 parent_frame = sys._getframe(2)
             except ValueError:
-                raise ValueError("Bad arguments to swap") from None
+                raise ValueError("Bad arguments to swap") # from None, ideally, but that would break python2 compatibility
 
             # The following is 100% identical to the logic above,
             # and could probably be abstracted by an external function

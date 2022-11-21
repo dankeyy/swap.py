@@ -4,7 +4,7 @@ cpp-std::swap-like swap function for cpython
 ## 🔴 Caveats 🔴
 This implementation heavily relies on c-api; will not work for other implementations of Python.
 
-So generally works fine for all versions of cpython (even 2.7).\
+Tested as working for versions 2.5 upto 3.11.\
 But - if for some reason you spread your swap call over multiple lines,\
 you would need to either use a version newer than 3.7 (old parser issue) or one-line it.
 
@@ -34,8 +34,7 @@ b = 'foo'
 Right
 
 ## Why
-Why not \
-Was a nice experiment too
+Why not
 
 ## How
 Swapping the two variables entry at the frame's locals.
@@ -48,7 +47,7 @@ I will make it clear that all this of course is not possible with merely `f_loca
 Overall that's really all there is to it. Pretty simple when you think about it.
 
 Also, I feel obliged to say it at this point; this is using an undocumented function of the c-api created mainly (only?) for debuggers.\
-But as the shitposter I am, I'm going to abuse it (sorry).\
+But as the shitposter I am, I'm going to abuse it.\
 So maybe don't do this at home, do as I say, not as I do, yada yada.
  
  ## Wouldn't you need to have the arguments' original names to access them at locals' dictionary
